@@ -1,0 +1,29 @@
+import cv2
+import numpy as np
+
+# Define the dimensions of the video frame
+frame_width = 640
+frame_height = 480
+
+# Create a VideoWriter object to save the video
+fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+video_writer = cv2.VideoWriter('output.mp4', fourcc, 30, (frame_width, frame_height))
+
+# Create a blank frame
+frame = np.zeros((frame_height, frame_width, 3), dtype=np.uint8)
+
+# Add text to the frame
+font = cv2.FONT_HERSHEY_SIMPLEX
+text = "Welcome to our Video Creation Platform!"
+text_size, _ = cv2.getTextSize(text, font, 1, 2)
+text_x = int((frame_width - text_size[0]) / 2)
+text_y = int((frame_height - text_size[1]) / 2)
+cv2.putText(frame, text, (text_x, text_y), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+
+# Write the frame to the video
+video_writer.write(frame)
+
+# Release the video writer
+video_writer.release()
+
+print("Video creation completed.")
